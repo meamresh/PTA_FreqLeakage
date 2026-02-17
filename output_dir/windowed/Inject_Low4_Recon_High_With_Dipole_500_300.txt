@@ -1,0 +1,11 @@
+TEST: Inject_Low4_Recon_High
+Description: Null test: anisotropy in low freq, fit high freq
+Scenario: With_Dipole
+N_pulsars: 300
+NPZ output: /Users/amreshverma/Documents/CosmicVariance/PTA_FreqLeakage/output_dir/windowed/Inject_Low4_Recon_High_With_Dipole_500_300.npz
+
+Results from reconstruction bins [ 3  4  5  6  7  8  9 10 11 12 13 14]:
+    Monopole: 0.281787 ± 0.005150
+              (true: 0.282095)
+    Dipole:   0.009032 ± 0.009536 (0.95σ)
+              (expected: 0.000000, true in inj region: 0.162868)
