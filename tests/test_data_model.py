@@ -37,7 +37,8 @@ class TestDataModel:
         n_freqs_ff = 5
 
         fi = jnp.arange(1, n_freqs_fi + 1) / Tspan
-        ff = jnp.arange(0.5, n_freqs_fi + 1, step=0.1) / Tspan
+        # Define ff with length n_freqs_ff to avoid shape mismatches
+        ff = jnp.linspace(0.5, float(n_freqs_fi), n_freqs_ff) / Tspan
 
         h_p = np.random.randn(10, n_freqs_ff) + 1j * np.random.randn(10, n_freqs_ff)
         h_c = np.random.randn(10, n_freqs_ff) + 1j * np.random.randn(10, n_freqs_ff)
@@ -62,7 +63,7 @@ class TestDataModel:
         n_freqs_ff = 5
 
         fi = jnp.arange(1, n_freqs_fi + 1) / Tspan
-        ff = jnp.arange(0.5, n_freqs_fi + 1, step=0.1) / Tspan
+        ff = jnp.linspace(0.5, float(n_freqs_fi), n_freqs_ff) / Tspan
 
         h_p = np.random.randn(10, n_freqs_ff) + 1j * np.random.randn(10, n_freqs_ff)
         h_c = np.random.randn(10, n_freqs_ff) + 1j * np.random.randn(10, n_freqs_ff)
@@ -87,7 +88,7 @@ class TestDataModel:
         n_freqs_ff = 5
 
         fi = jnp.arange(1, n_freqs_fi + 1) / Tspan
-        ff = jnp.arange(0.5, n_freqs_fi + 1, step=0.1) / Tspan
+        ff = jnp.linspace(0.5, float(n_freqs_fi), n_freqs_ff) / Tspan
 
         h_tilde = np.random.randn(2, 10, n_freqs_ff) + 1j * np.random.randn(2, 10, n_freqs_ff)
         distances = np.random.rand(n_pulsars) * 1e18
@@ -153,9 +154,10 @@ class TestDataModel:
         Nside = 8
 
         fi = jnp.arange(1, n_freqs_fi + 1) / Tspan
-        ff = jnp.arange(0.5, n_freqs_fi + 1, step=0.1) / Tspan
+        ff = jnp.linspace(0.5, float(n_freqs_fi), n_freqs_ff) / Tspan
 
-        H_p_ff = np.random.rand(12 * Nside * Nside, n_freqs_ff)
+        # Second axis of H_p_ff must match len(ff)
+        H_p_ff = np.random.rand(12 * Nside * Nside, len(ff))
 
         C_ff = data_model.get_D_IJ_fifj_normalization_baseline(
             Tspan, fi, ff, jnp.array(H_p_ff)
@@ -173,9 +175,9 @@ class TestDataModel:
         Nside = 8
 
         fi = jnp.arange(1, n_freqs_fi + 1) / Tspan
-        ff = jnp.arange(0.5, n_freqs_fi + 1, step=0.1) / Tspan
+        ff = jnp.linspace(0.5, float(n_freqs_fi), n_freqs_ff) / Tspan
 
-        H_p_ff = np.random.rand(12 * Nside * Nside, n_freqs_ff)
+        H_p_ff = np.random.rand(12 * Nside * Nside, len(ff))
 
         C_ff = data_model.get_D_IJ_fifj_normalization_windowed(
             Tspan, fi, ff, jnp.array(H_p_ff)
