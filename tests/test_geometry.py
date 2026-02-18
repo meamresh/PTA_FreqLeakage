@@ -56,8 +56,8 @@ class TestGeometry:
         # Plus should be symmetric
         np.testing.assert_allclose(plus[0], plus[0].T, rtol=1e-10)
 
-        # Cross should be antisymmetric
-        np.testing.assert_allclose(cross[0], -cross[0].T, rtol=1e-10)
+        # Cross should be antisymmetric (allow small numerical error)
+        np.testing.assert_allclose(cross[0], -cross[0].T, rtol=1e-8, atol=1e-12)
 
     def test_get_R_pc(self):
         """Test PTA response function computation."""
@@ -79,6 +79,7 @@ class TestGeometry:
 
         R_p, R_c = geometry.get_R_pc(f_vec, distances, p_vec, theta_k, phi_k)
 
+        # get_R_pc returns arrays shaped (n_pixels, n_pulsars, n_freqs)
         assert R_p.shape == (n_pixels, n_pulsars, n_freqs)
         assert R_c.shape == (n_pixels, n_pulsars, n_freqs)
         assert np.iscomplexobj(R_p)

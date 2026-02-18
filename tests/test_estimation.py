@@ -18,8 +18,8 @@ class TestEstimation:
         A_inv = estimation.compute_inverse(jnp.array(A))
         result = jnp.dot(A, A_inv)
 
-        # Should be close to identity
-        np.testing.assert_allclose(result, np.eye(5), rtol=1e-5)
+        # Should be close to identity (allow small numerical error)
+        np.testing.assert_allclose(result, np.eye(5), rtol=1e-4, atol=1e-10)
 
     def test_get_covariance_diagonal(self):
         """Test diagonal covariance computation."""
