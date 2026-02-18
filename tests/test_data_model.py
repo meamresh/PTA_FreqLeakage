@@ -121,7 +121,7 @@ class TestDataModel:
         n_freqs_ff = 5
 
         fi = jnp.arange(1, n_freqs_fi + 1) / Tspan
-        ff = jnp.arange(0.5, n_freqs_fi + 1, step=0.1) / Tspan
+        ff = jnp.linspace(0.5, float(n_freqs_fi), n_freqs_ff) / Tspan
 
         h_tilde = np.random.randn(2, 10, n_freqs_ff) + 1j * np.random.randn(2, 10, n_freqs_ff)
         distances = np.random.rand(n_pulsars) * 1e18
