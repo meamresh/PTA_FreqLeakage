@@ -42,8 +42,6 @@ coverage.xml
 # Project specific
 output_dir/
 plots/
-*.npz
-*.txt
 
 # OS
 .DS_Store
