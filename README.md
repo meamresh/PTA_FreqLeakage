@@ -154,15 +154,36 @@ PTA_FreqLeakage/
     └── windowed/
 ```
 
+## Quick Start
+
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Run tests
+pytest
+
+# Run baseline simulation
+python3 run_baseline.py
+
+# Run windowed simulation
+python3 run_windowed.py
+
+# Visualize results
+python3 visualize_results.py output_dir/baseline/your_file.npz
+```
+
 ## Dependencies
 
 Required Python packages:
-- `numpy`
-- `jax` / `jax.numpy`
-- `healpy`
-- `scipy`
-- `matplotlib` (for visualization)
-- `tqdm`
+- `numpy>=1.20.0`
+- `jax>=0.4.0` / `jaxlib>=0.4.0`
+- `healpy>=1.15.0`
+- `scipy>=1.7.0`
+- `matplotlib>=3.5.0` (for visualization)
+- `tqdm>=4.62.0`
+- `pytest>=7.0.0` (for testing)
+- `pytest-cov>=3.0.0` (for coverage)
 
 ## Test Cases
 
@@ -257,6 +278,94 @@ Both scripts support four test cases (select via `current_test` index):
 - Frequency bins are indexed starting from 0
 - Spherical harmonics use real-valued basis functions
 - All frequencies are in Hz (converted from 1/Tspan units)
+
+## Testing
+
+The project includes a comprehensive test suite using pytest.
+
+### Running Tests
+
+```bash
+# Run all tests
+pytest
+
+# Or use make
+make test
+
+# Run with coverage report
+pytest --cov=pta_anisotropy --cov-report=html
+# Or
+make test-cov
+
+# Run specific test file
+pytest tests/test_constants.py
+
+# Run tests matching a pattern
+pytest -k "test_frequency"
+
+# Run tests excluding slow ones
+pytest -m "not slow"
+```
+
+### Test Structure
+
+Tests are organized in the `tests/` directory:
+- `test_constants.py`: Physical constants and utilities
+- `test_spherical.py`: Spherical harmonics conversions
+- `test_freq_config.py`: Frequency configuration
+- `test_simulation.py`: Monte Carlo simulation utilities
+- `test_geometry.py`: Geometric computations
+- `test_data_model.py`: Data model functions (baseline & windowed)
+- `test_estimation.py`: Parameter estimation algorithms
+- `test_gamma_tensors.py`: Overlap reduction function tensors
+
+### Continuous Integration
+
+The project uses GitHub Actions for CI/CD (`.github/workflows/ci.yml`):
+- **Test Matrix**: Runs on Ubuntu and macOS with Python 3.9, 3.10, and 3.11
+- **Linting**: Checks code style with flake8, black, and isort
+- **Coverage**: Generates coverage reports and uploads to Codecov
+- **Build Verification**: Tests package import and basic functionality
+
+CI runs automatically on:
+- Push to main/master/develop branches
+- Pull requests to main/master/develop branches
+
+View CI status badges in your repository's README or Actions tab.
+
+## Development
+
+### Setting Up Development Environment
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd PTA_FreqLeakage
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run tests to verify installation
+pytest
+```
+
+### Code Style
+
+The project follows PEP 8 style guidelines. Before committing:
+- Run `black` for code formatting
+- Run `isort` for import sorting
+- Run `flake8` for linting
+
+```bash
+# Format code
+black pta_anisotropy/ tests/
+
+# Sort imports
+isort pta_anisotropy/ tests/
+
+# Check linting
+flake8 pta_anisotropy/ tests/
+```
 
 ## Citation
 
